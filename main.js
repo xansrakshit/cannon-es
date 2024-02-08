@@ -99,7 +99,7 @@ vehicle.addToWorld(world);
 
 document.addEventListener("keydown", (event) => {
   const maxSteerVal = Math.PI / 8;
-  const maxForce = 10;
+  const maxForce = 20;
   // console.log(event.code);
   // console.log(vehicle);
   switch (event.key) {
@@ -129,10 +129,18 @@ document.addEventListener("keydown", (event) => {
   }
   // switch (event.code) {
   //   case "Space":
-  //     vehicle.setMotorSpeed(0, 0);
-  //     vehicle.setMotorSpeed(0, 1);
-  //     vehicle.setMotorSpeed(0, 2);
-  //     vehicle.setMotorSpeed(0, 3);
+  //     // vehicle.setMotorSpeed(0, 0);
+  //     // vehicle.setMotorSpeed(0, 1);
+  //     // vehicle.setMotorSpeed(0, 2);
+  //     // vehicle.setMotorSpeed(0, 3);
+  //     console.log("called");
+  //     vehicle.chassisBody.velocity.set(0, 0, 0);
+  //     console.log(vehicle.chassisBody.velocity);
+  //     console.log(vehicle);
+  //     vehicle.setWheelForce(0, 0);
+  //     vehicle.setWheelForce(0, 1);
+  //     vehicle.setWheelForce(0, 2);
+  //     vehicle.setWheelForce(0, 3);
   //     // vehicle.setSteeringValue(0, 0);
   //     // vehicle.setSteeringValue(0, 1);
   //     // vehicle.setSteeringValue(0, 2);
@@ -172,6 +180,44 @@ document.addEventListener("keyup", (event) => {
 });
 
 // groundBody.quaternion.setFromEuler(-Math.PI / 2, Math.PI / 24, 0);
+// sync game world with physics world
+const boxGeometry = new THREE.BoxGeometry(8, 1, 4);
+const boxMaterial = new THREE.MeshNormalMaterial();
+const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+scene.add(boxMesh);
+
+const sphereGeometry1 = new THREE.SphereGeometry(1);
+const sphereMaterial1 = new THREE.MeshNormalMaterial();
+const sphereMesh1 = new THREE.Mesh(sphereGeometry1, sphereMaterial1);
+scene.add(sphereMesh1);
+
+const sphereGeometry2 = new THREE.SphereGeometry(1);
+const sphereMaterial2 = new THREE.MeshNormalMaterial();
+const sphereMesh2 = new THREE.Mesh(sphereGeometry2, sphereMaterial2);
+scene.add(sphereMesh2);
+
+const sphereGeometry3 = new THREE.SphereGeometry(1);
+const sphereMaterial3 = new THREE.MeshNormalMaterial();
+const sphereMesh3 = new THREE.Mesh(sphereGeometry3, sphereMaterial3);
+scene.add(sphereMesh3);
+
+const sphereGeometry4 = new THREE.SphereGeometry(1);
+const sphereMaterial4 = new THREE.MeshNormalMaterial();
+const sphereMesh4 = new THREE.Mesh(sphereGeometry4, sphereMaterial4);
+scene.add(sphereMesh4);
+
+function syncGamePhyWorld() {
+  boxMesh.position.copy(carBody.position);
+  boxMesh.quaternion.copy(carBody.quaternion);
+  sphereMesh1.position.copy(wheelBody1.position);
+  sphereMesh1.quaternion.copy(wheelBody1.quaternion);
+  sphereMesh2.position.copy(wheelBody2.position);
+  sphereMesh2.quaternion.copy(wheelBody2.quaternion);
+  sphereMesh3.position.copy(wheelBody3.position);
+  sphereMesh3.quaternion.copy(wheelBody3.quaternion);
+  sphereMesh4.position.copy(wheelBody4.position);
+  sphereMesh4.quaternion.copy(wheelBody4.quaternion);
+}
 
 function animate() {
   requestAnimationFrame(animate);
@@ -179,6 +225,7 @@ function animate() {
   world.fixedStep();
   cannonDebugger.update();
   controls.update();
+  syncGamePhyWorld();
   renderer.render(scene, camera);
 }
 
