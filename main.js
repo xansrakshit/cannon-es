@@ -99,9 +99,11 @@ vehicle.addToWorld(world);
 
 document.addEventListener("keydown", (event) => {
   const maxSteerVal = Math.PI / 8;
-  const maxForce = 20;
+  const maxForce = 50;
+  const brakeForce = 100;
   // console.log(event.code);
   // console.log(vehicle);
+  console.log(event.key);
   switch (event.key) {
     case "w":
     case "ArrowUp":
@@ -126,28 +128,14 @@ document.addEventListener("keydown", (event) => {
       vehicle.setSteeringValue(-maxSteerVal, 0);
       vehicle.setSteeringValue(-maxSteerVal, 1);
       break;
+
+    // case " ":
+    // case "Space":
+    //   // Apply brakes
+    //   vehicle.setWheelForce(-brakeForce, 0); // Apply brake force to front wheels
+    //   vehicle.setWheelForce(-brakeForce, 1); // Apply brake force to rear wheels
+    //   break;
   }
-  // switch (event.code) {
-  //   case "Space":
-  //     // vehicle.setMotorSpeed(0, 0);
-  //     // vehicle.setMotorSpeed(0, 1);
-  //     // vehicle.setMotorSpeed(0, 2);
-  //     // vehicle.setMotorSpeed(0, 3);
-  //     console.log("called");
-  //     vehicle.chassisBody.velocity.set(0, 0, 0);
-  //     console.log(vehicle.chassisBody.velocity);
-  //     console.log(vehicle);
-  //     vehicle.setWheelForce(0, 0);
-  //     vehicle.setWheelForce(0, 1);
-  //     vehicle.setWheelForce(0, 2);
-  //     vehicle.setWheelForce(0, 3);
-  //     // vehicle.setSteeringValue(0, 0);
-  //     // vehicle.setSteeringValue(0, 1);
-  //     // vehicle.setSteeringValue(0, 2);
-  //     // vehicle.setSteeringValue(0, 3);
-  //     // vehicle.setMotorSpeed()
-  //     break;
-  // }
 });
 
 // reset car force to zero when key is released
