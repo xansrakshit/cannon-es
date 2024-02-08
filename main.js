@@ -97,6 +97,80 @@ vehicle.addWheel({
 
 vehicle.addToWorld(world);
 
+document.addEventListener("keydown", (event) => {
+  const maxSteerVal = Math.PI / 8;
+  const maxForce = 10;
+  // console.log(event.code);
+  // console.log(vehicle);
+  switch (event.key) {
+    case "w":
+    case "ArrowUp":
+      vehicle.setWheelForce(maxForce, 0);
+      vehicle.setWheelForce(maxForce, 1);
+      break;
+
+    case "s":
+    case "ArrowDown":
+      vehicle.setWheelForce(-maxForce / 2, 0);
+      vehicle.setWheelForce(-maxForce / 2, 1);
+      break;
+
+    case "a":
+    case "ArrowLeft":
+      vehicle.setSteeringValue(maxSteerVal, 0);
+      vehicle.setSteeringValue(maxSteerVal, 1);
+      break;
+
+    case "d":
+    case "ArrowRight":
+      vehicle.setSteeringValue(-maxSteerVal, 0);
+      vehicle.setSteeringValue(-maxSteerVal, 1);
+      break;
+  }
+  // switch (event.code) {
+  //   case "Space":
+  //     vehicle.setMotorSpeed(0, 0);
+  //     vehicle.setMotorSpeed(0, 1);
+  //     vehicle.setMotorSpeed(0, 2);
+  //     vehicle.setMotorSpeed(0, 3);
+  //     // vehicle.setSteeringValue(0, 0);
+  //     // vehicle.setSteeringValue(0, 1);
+  //     // vehicle.setSteeringValue(0, 2);
+  //     // vehicle.setSteeringValue(0, 3);
+  //     // vehicle.setMotorSpeed()
+  //     break;
+  // }
+});
+
+// reset car force to zero when key is released
+document.addEventListener("keyup", (event) => {
+  switch (event.key) {
+    case "w":
+    case "ArrowUp":
+      vehicle.setWheelForce(0, 0);
+      vehicle.setWheelForce(0, 1);
+      break;
+
+    case "s":
+    case "ArrowDown":
+      vehicle.setWheelForce(0, 0);
+      vehicle.setWheelForce(0, 1);
+      break;
+
+    case "a":
+    case "ArrowLeft":
+      vehicle.setSteeringValue(0, 0);
+      vehicle.setSteeringValue(0, 1);
+      break;
+
+    case "d":
+    case "ArrowRight":
+      vehicle.setSteeringValue(0, 0);
+      vehicle.setSteeringValue(0, 1);
+      break;
+  }
+});
+
 // groundBody.quaternion.setFromEuler(-Math.PI / 2, Math.PI / 24, 0);
 
 function animate() {
