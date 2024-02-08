@@ -43,6 +43,18 @@ const sphereBody = new CANNON.Body({
 sphereBody.position.set(0, 7, 0); // m
 world.addBody(sphereBody);
 
+const boxBody = new CANNON.Body({
+  mass: 5,
+  shape: new CANNON.Box(new CANNON.Vec3(1, 1, 1)),
+});
+boxBody.position.set(1, 10, 0);
+world.addBody(boxBody);
+
+const boxGeometry = new THREE.BoxGeometry(2, 2, 2);
+const boxMaterial = new THREE.MeshNormalMaterial();
+const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+scene.add(boxMesh);
+
 // Create a static plane for the ground
 const groundBody = new CANNON.Body({
   type: CANNON.Body.STATIC, // can also be achieved by setting the mass to 0
@@ -73,6 +85,9 @@ function animate() {
 
   sphereMesh.position.copy(sphereBody.position);
   sphereMesh.quaternion.copy(sphereBody.quaternion);
+
+  boxMesh.position.copy(boxBody.position);
+  boxMesh.quaternion.copy(boxBody.quaternion);
 
   // the sphere y position shows the sphere falling
   // console.log(`Sphere y position: ${sphereBody.position.y}`);
