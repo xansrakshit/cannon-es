@@ -48,7 +48,56 @@ const vehicle = new CANNON.RigidVehicle({
   chassisBody: carBody,
 });
 
+// Add wheels to the vehicle
+const mass = 1,
+  axisWidth = 5,
+  wheelShape = new CANNON.Sphere(1);
+const wheelMaterial = new CANNON.Material("wheel");
+const down = new CANNON.Vec3(0, -1, 0);
+
+const wheelBody1 = new CANNON.Body({ mass, material: wheelMaterial });
+wheelBody1.addShape(wheelShape);
+wheelBody1.angularDamping = 0.4;
+vehicle.addWheel({
+  body: wheelBody1,
+  position: new CANNON.Vec3(-2, 0, axisWidth / 2),
+  axis: new CANNON.Vec3(0, 0, 1),
+  direction: down,
+});
+
+const wheelBody2 = new CANNON.Body({ mass, material: wheelMaterial });
+wheelBody2.addShape(wheelShape);
+wheelBody2.angularDamping = 0.4;
+vehicle.addWheel({
+  body: wheelBody2,
+  position: new CANNON.Vec3(-2, 0, -axisWidth / 2),
+  axis: new CANNON.Vec3(0, 0, 1),
+  direction: down,
+});
+
+const wheelBody3 = new CANNON.Body({ mass, material: wheelMaterial });
+wheelBody3.addShape(wheelShape);
+wheelBody3.angularDamping = 0.4;
+vehicle.addWheel({
+  body: wheelBody3,
+  position: new CANNON.Vec3(2, 0, axisWidth / 2),
+  axis: new CANNON.Vec3(0, 0, 1),
+  direction: down,
+});
+
+const wheelBody4 = new CANNON.Body({ mass, material: wheelMaterial });
+wheelBody4.addShape(wheelShape);
+wheelBody4.angularDamping = 0.4;
+vehicle.addWheel({
+  body: wheelBody4,
+  position: new CANNON.Vec3(2, 0, -axisWidth / 2),
+  axis: new CANNON.Vec3(0, 0, 1),
+  direction: down,
+});
+
 vehicle.addToWorld(world);
+
+// groundBody.quaternion.setFromEuler(-Math.PI / 2, Math.PI / 24, 0);
 
 function animate() {
   requestAnimationFrame(animate);
